@@ -1,29 +1,18 @@
 #!/bin/bash
 
-VERSION=4.4.20
+VERSION=$1
 
-sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc
+if [[ -z "${VERSION}" ]]; then
+	echo "Syntax: $0 <version>"
+	echo "  where version is an official kernel version, e.g. 4.4.20"
+        exit 1
+fi
 
-sudo apt-get --no-install-recommends install kernel-package
+set -ex
 
-wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${VERSION}.tar.xz
-wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-${VERSION}.tar.sign
+mkdir -p dist/${VERSION}
 
-# Trust Greg Kroah-Hartman key
-gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 38DBBDC86092693E
+docker build -f src/images/builder/Dockerfile -t kernelbuilder src
 
-# Check signature
-xz -cd linux-${VERSION}.tar.xz | gpg2 --verify linux-${VERSION}.tar.sign -
-
-# TODO: How do we actually verify the signature here?
-
-tar xf linux-${VERSION}.tar.xz
-
-cp config-4.5.0-0.bpo.2-amd64 linux-${VERSION}/.config
-
-cd linux-${VERSION}
-make-kpkg clean
-
-fakeroot make-kpkg -j 64 --initrd --revision=20160825.k8s buildpackage
-
+docker run -v `pwd`/dist/${VERSION}:/dist kernelbuilder /src/build-in-docker.sh
 
