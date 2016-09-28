@@ -14,5 +14,5 @@ mkdir -p dist/${VERSION}
 
 docker build -f src/images/builder/Dockerfile -t kernelbuilder src
 
-docker run -v `pwd`/dist/${VERSION}:/dist kernelbuilder /src/build-in-docker.sh ${VERSION}
+docker run --rm -v `pwd`/dist/${VERSION}:/dist kernelbuilder /src/build-in-docker.sh ${VERSION}
 
