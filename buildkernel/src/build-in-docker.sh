@@ -1,6 +1,15 @@
-#!/bin/bash -ex
+#!/bin/bash
 
-VERSION=4.4.20
+VERSION=$1
+
+if [[ -z "${VERSION}" ]]; then
+        echo "Syntax: $0 <version>"
+        echo "  where version is an official kernel version, e.g. 4.4.20"
+        exit 1
+fi
+
+set -ex
+
 REVISION=`date +%Y%m%d`
 #KDEB_SOURCENAME=linux-4.4
 KDEB_PKGVERSION=${VERSION}-${REVISION}
