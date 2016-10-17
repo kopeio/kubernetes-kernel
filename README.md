@@ -20,11 +20,11 @@ gpg --import ~/secretkey.txt
 
 Check out the code into ~: `cd ~; git clone https://github.com/kopeio/kubernetes-kernel.git`
 
-Then build the kernel image:
+You can install pre-requisites using: `make prereqs`  (you may need to log on and off afterwards)
 
-```
-cd ~/kubernetes-kernel; make upload-kernel
-```
+Note: if docker is not using overlay, it will likely fail during the kernel build.
+
+Then build the kernel image: `cd ~/kubernetes-kernel; make upload-kernel`
 
 Then update & validate the kernel.
 

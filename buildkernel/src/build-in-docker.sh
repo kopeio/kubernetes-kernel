@@ -42,4 +42,5 @@ make clean
 #make -j64 deb-pkg LOCALVERSION=-k8s KDEB_PKGVERSION=${KDEB_PKGVERSION} KDEB_SOURCENAME=${KDEB_SOURCENAME} KERNELRELEASE=${KERNELRELEASE}
 make -j64 deb-pkg LOCALVERSION=-k8s KDEB_PKGVERSION=${KDEB_PKGVERSION}
 
-cp /build/* /dist/
+cp /build/*.deb /dist/
+cp /build/*.dsc /dist/
