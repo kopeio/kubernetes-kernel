@@ -6,11 +6,11 @@ Priority: optional
 # Homepage: <enter URL here; no default>
 Standards-Version: 3.9.2
 
-Package: linux-image-k8s
+Package: linux-headers-k8s
 Version: 1.4-4.4.23
 # Maintainer: Your Name <yourname@example.com>
 # Pre-Depends: <comma-separated list of packages>
-Depends: linux-image-4.4.23-k8s
+Depends: linux-headers-4.4.23-k8s
 # Recommends: <comma-separated list of packages>
 # Suggests: <comma-separated list of packages>
 # Provides: <comma-separated list of packages>
@@ -22,6 +22,6 @@ Depends: linux-image-4.4.23-k8s
 # Extra-Files: <comma-separated list of additional files for the doc directory>
 # Files: <pair of space-separated paths; First is file to include, second is destination>
 #  <more pairs, if there's more than one file to include. Notice the starting space>
-Description: Metapackage for kubernetes-optimized linux kernel
+Description: Metapackage for kubernetes-optimized linux kernel headers
  This package will install an appropriate linux kernel
- for running kubernetes.
+ headers for the running kubernetes kernel.
