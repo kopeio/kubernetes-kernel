@@ -17,23 +17,36 @@ docker: prereqs
 
 # Build kernel
 kernel: docker
-	cd ~/ && git clone https://github.com/kopeio/kubernetes-kernel.git
+	#cd ~/ && git clone https://github.com/kopeio/kubernetes-kernel.git
 	cd ~/kubernetes-kernel/buildkernel && ./build.sh ${VERSION}
 
 # Build metapackages
 metapackages: prereqs
-	cd ~/kubernetes-kernel/src/meta && equivs-build linux-image-k8s
-	cd ~/kubernetes-kernel/metapackages && equivs-build linux-headers-k8s
+	cd ~/kubernetes-kernel/buildkernel/src/meta && equivs-build linux-image-k8s
+	cd ~/kubernetes-kernel/buildkernel/src/meta && equivs-build linux-headers-k8s
 
-# Upload
-upload: metapackages kernel
+prep-repo:
 	gpg --import ~/secretkey.txt
 	sudo apt-get install --yes reprepro
 	aws s3 sync s3://dist.kope.io/apt/ ~/kubernetes-kernel/repos/apt/
+  gpg --armor --output ~/kubernetes-kernel/repos/apt/kopeio.gpg.key --export FBD93F29
+
+# Upload metapackages
+build-metapackages: metapackages prep-repo
+	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/src/meta/*/*.deb
+
+upload-metapackages: build-metapackages push-repo
+  echo "done"
+
+# Upload kernel
+build-kernel-debs: kernel prep-repo
 	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/dist/*/*.deb
 	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/dist/*/*.dsc
-	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/src/meta/*/*.deb
-	gpg --armor --output kopeio.gpg.key --export FBD93F29
+
+upload-kernel: build-kernel-debs push-repo
+  echo "done"
+
+push-repo:
 	aws s3 cp --acl=public-read kopeio.gpg.key s3://dist-kope-io/apt/kopeio.gpg.key
 	aws s3 sync --acl=public-read ~/kubernetes-kernel/repos/apt/pool/ s3://dist.kope.io/apt/pool/
 	aws s3 sync --acl=public-read ~/kubernetes-kernel/repos/apt/dists/ s3://dist.kope.io/apt/dists/
