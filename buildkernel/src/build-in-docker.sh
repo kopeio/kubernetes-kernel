@@ -44,3 +44,4 @@ make -j64 deb-pkg LOCALVERSION=-k8s KDEB_PKGVERSION=${KDEB_PKGVERSION}
 
 cp /build/*.deb /dist/
 cp /build/*.dsc /dist/
+cp /build/*.tar.gz /dist/

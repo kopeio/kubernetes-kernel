@@ -41,7 +41,7 @@ upload-metapackages: build-metapackages push-repo
 # Upload kernel
 build-kernel-debs: kernel prep-repo
 	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/dist/*/*.deb
-	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/dist/*/*.dsc
+	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedsc jessie ~/kubernetes-kernel/buildkernel/dist/*/*.dsc
 
 upload-kernel: build-kernel-debs push-repo
 	echo "done"
