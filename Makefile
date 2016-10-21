@@ -1,4 +1,4 @@
-VERSION=4.4.25
+VERSION=4.4.26
 
 prereqs:
 	sudo apt-get update
@@ -33,7 +33,7 @@ prep-repo:
 
 # Upload metapackages
 build-metapackages: metapackages prep-repo
-	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/src/meta/*/*.deb
+	cd ~/kubernetes-kernel/repos/apt/ && reprepro includedeb jessie ~/kubernetes-kernel/buildkernel/src/meta/*.deb
 
 upload-metapackages: build-metapackages push-repo
 	echo "done"
