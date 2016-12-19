@@ -4,7 +4,7 @@ VERSION=$1
 
 if [[ -z "${VERSION}" ]]; then
         echo "Syntax: $0 <version>"
-        echo "  where version is an official kernel version, e.g. 4.4.36"
+        echo "  where version is an official kernel version, e.g. 4.4.39"
         exit 1
 fi
 

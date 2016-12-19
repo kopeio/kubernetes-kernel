@@ -7,10 +7,10 @@ Priority: optional
 Standards-Version: 3.9.2
 
 Package: linux-headers-k8s
-Version: 1.4-4.4.36
+Version: 1.4-4.4.39
 # Maintainer: Your Name <yourname@example.com>
 # Pre-Depends: <comma-separated list of packages>
-Depends: linux-headers-4.4.36-k8s
+Depends: linux-headers-4.4.39-k8s
 # Recommends: <comma-separated list of packages>
 # Suggests: <comma-separated list of packages>
 # Provides: <comma-separated list of packages>
