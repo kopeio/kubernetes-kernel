@@ -1,4 +1,4 @@
-VERSION=4.4.36
+VERSION=4.4.39
 
 prereqs:
 	sudo apt-get update
