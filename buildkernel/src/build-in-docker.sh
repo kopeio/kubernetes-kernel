@@ -34,6 +34,10 @@ tar xf linux-${VERSION}.tar.xz
 cp /src/config-${VERSION} linux-${VERSION}/.config
 cd linux-${VERSION}
 
+# Verify we have requirements early
+make -C tools/perf/Documentation/ check-man-tools
+
+
 #make-kpkg clean
 #fakeroot make-kpkg -j 64 --initrd --append-to-version -k8s --revision=${REVISION} buildpackage
 
