@@ -34,6 +34,9 @@ tar xf linux-${VERSION}.tar.xz
 cp /src/config-${VERSION} linux-${VERSION}/.config
 cd linux-${VERSION}
 
+# Apply patch
+patch -p1 < /src/patch-${VERSION}
+
 # Verify we have requirements early
 make -C tools/perf/Documentation/ check-man-tools
 
