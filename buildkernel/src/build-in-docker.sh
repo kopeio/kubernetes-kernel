@@ -35,7 +35,9 @@ cp /src/config-${VERSION} linux-${VERSION}/.config
 cd linux-${VERSION}
 
 # Apply patch
-patch -p1 < /src/patch-${VERSION}
+if [[ -f /src/patch-${VERSION} ]]; then
+  patch -p1 < /src/patch-${VERSION}
+fi
 
 # Verify we have requirements early
 make -C tools/perf/Documentation/ check-man-tools
