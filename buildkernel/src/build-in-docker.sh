@@ -27,7 +27,7 @@ gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 38DBBDC86092693E
 # Check signature
 xz -cd linux-${VERSION}.tar.xz | gpg2 --verify linux-${VERSION}.tar.sign -
 
-# TODO: How do we actually verify the signature here?
+# TODO: Should we do a md5 checksum as well as a signature check?
 
 rm -rf linux-${VERSION}
 tar xf linux-${VERSION}.tar.xz
@@ -61,8 +61,7 @@ cp /build/*.tar.gz /dist/
 # We now build the perf package
 
 
-make -C tools/perf/ install DESTDIR=/tmp/perf-package/linux-perf-4.4/usr
-
+make -C tools/perf/ install DESTDIR=/tmp/perf-package/linux-perf-4.4/usr EXTRA_CFLAGS="-Wno-error=format-truncation -Wno-error=restrict -Wno-error=cast-function-type -Wno-error=format-overflow"
 
 cd /tmp/perf-package/
 mkdir -p linux-perf-4.4/DEBIAN
