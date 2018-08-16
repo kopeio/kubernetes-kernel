@@ -7,10 +7,10 @@ Priority: optional
 Standards-Version: 3.9.2
 
 Package: linux-image-k8s
-Version: 1.4-4.4.133
+Version: 1.4-4.4.148
 # Maintainer: Your Name <yourname@example.com>
 # Pre-Depends: <comma-separated list of packages>
-Depends: linux-image-4.4.133-k8s
+Depends: linux-image-4.4.148-k8s
 # Recommends: <comma-separated list of packages>
 # Suggests: <comma-separated list of packages>
 # Provides: <comma-separated list of packages>
